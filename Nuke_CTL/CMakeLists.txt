@@ -10,7 +10,13 @@ if(NUKE_FOUND)
   else()
       set( DEFAULT_PLUGIN_DIR $ENV{NUKE_PATH} )
   endif()
-  set( DEFAULT_PLUGIN_DIR ${DEFAULT_PLUGIN_DIR}/plugins/${NUKE_API_VERSION} )
+
+  # The line below doesn't make sense for Nuke 8.0 or greater. The version-specific plugin dir is now
+  #   /Library/Application Support/Nuke/8.0/plugins/ [for Mac OS X]
+  #   /usr/local/Nuke/8.0/plugins/ [for linux]
+  #   C:\Program Files\Common Files\Nuke\8.0\plugins or C:\Program Files (x86)\Common Files\Nuke\8.0\plugins [for Windows]
+  # set( DEFAULT_PLUGIN_DIR ${DEFAULT_PLUGIN_DIR}/plugins/${NUKE_API_VERSION} )
+
   set( INSTALL_NUKE_PLUGIN_DIR ${DEFAULT_PLUGIN_DIR} CACHE PATH "Location to install Nuke plugins" )
 
   if( NOT DEFINED INSTALL_NUKE_PLUGIN_DIR )
@@ -32,9 +38,13 @@ if(NUKE_FOUND)
 
   add_library(NukeCtl SHARED
     NukeCtl.cpp
-	NukeInputParameters.cpp
-	NukeTransform.cpp
+    NukeCtlUtils.cpp
+    NukeCtlChanArgMap.cpp
+    NukeCtlTransform.cpp
   )
+
+  set_target_properties(NukeCtl PROPERTIES PREFIX "")
+  set_target_properties(NukeCtl PROPERTIES INSTALL_RPATH "${CMAKE_INSTALL_PREFIX}/lib")
 
   target_link_libraries( NukeCtl IlmCtl IlmCtlMath IlmCtlSimd IlmThread Half Iex )
   target_link_libraries( NukeCtl ${IlmBase_LIBRARIES} ${IlmBase_LDFLAGS_OTHER} )
