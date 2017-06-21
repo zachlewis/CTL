@@ -3,7 +3,8 @@ add_subdirectory( IlmCtlMath )
 add_subdirectory( IlmCtlSimd )
 
 if ( OpenEXR_FOUND )
-  endif()
+  add_subdirectory( IlmImfCtl )
+endif()
 
 add_subdirectory( dpx )
 
