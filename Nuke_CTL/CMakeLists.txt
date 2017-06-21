@@ -20,13 +20,12 @@ if(NUKE_FOUND)
   set( INSTALL_NUKE_PLUGIN_DIR ${DEFAULT_PLUGIN_DIR} CACHE PATH "Location to install Nuke plugins" )
 
   if( NOT DEFINED INSTALL_NUKE_PLUGIN_DIR )
-    message(WARNING " No install path defined for nuke plugins
+    message(WARNING " No install path defined for Nuke plugins
    please define NUKE_PATH or INSTALL_NUKE_PLUGIN_DIR
    skipping Nuke_CTL")
     return()
   else()
-    message(STATUS "Nuke plugins will be installed in ${INSTALL_NUKE_PLUGIN_DIR}")
-    message("Don't forget to add this path to your init.py file")
+    message(STATUS "Nuke plugins will be installed in ${INSTALL_NUKE_PLUGIN_DIR}. Don't forget to add this path to your init.py file")
   endif()
 
   include_directories("${CMAKE_CURRENT_SOURCE_DIR}" 
@@ -43,8 +42,9 @@ if(NUKE_FOUND)
     NukeCtlTransform.cpp
   )
 
-  set_target_properties(NukeCtl PROPERTIES PREFIX "")
-  set_target_properties(NukeCtl PROPERTIES INSTALL_RPATH "${CMAKE_INSTALL_PREFIX}/lib")
+  set_target_properties(NukeCtl PROPERTIES
+    PREFIX ""
+    INSTALL_RPATH "${CMAKE_INSTALL_PREFIX}/lib")
 
   target_link_libraries( NukeCtl IlmCtl IlmCtlMath IlmCtlSimd IlmThread Half Iex )
   target_link_libraries( NukeCtl ${IlmBase_LIBRARIES} ${IlmBase_LDFLAGS_OTHER} )
@@ -53,7 +53,7 @@ if(NUKE_FOUND)
 
   install( TARGETS NukeCtl DESTINATION ${INSTALL_NUKE_PLUGIN_DIR} )
 else()
-  message( WARNING "NUKE not found, check NUKE_INSTALL_PATH setting or NDKDIR env. var, NukeCTL plugin disabled" )
+  message( WARNING "Nuke not found, check NUKE_INSTALL_PATH setting or NDKDIR environment variable. NukeCTL plugin disabled." )
 endif()
 
 

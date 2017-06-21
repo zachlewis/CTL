@@ -51,9 +51,9 @@ endforeach()
 option(ENABLE_SHARED "Enable Shared Libraries" ON)
 
 if ( ENABLE_SHARED )
-set( DO_SHARED SHARED )
+  set( DO_SHARED SHARED )
 else()
-set( DO_SHARED STATIC )
+  set( DO_SHARED STATIC )
 endif()
 
 # Find packages and set up global settings
@@ -72,9 +72,10 @@ add_subdirectory(OpenEXR_CTL)
 add_subdirectory(Nuke_CTL)
 add_subdirectory(unittest EXCLUDE_FROM_ALL)
 
-# Add all targets to the build-tree export set
-export( TARGETS IlmCtl IlmCtlMath IlmCtlSimd FILE "${PROJECT_BINARY_DIR}/CTLLibraryDepends.cmake" )
-export(PACKAGE CTL)
+install( EXPORT dev DESTINATION "${PROJECT_BINARY_DIR}" FILE "CTLLibraryDepends.cmake")
+
+# Store current build dir in CMake user package registry.
+export( PACKAGE CTL )
  
 # Create a CTLBuildTreeSettings.cmake file for the use from the build tree
 file(RELATIVE_PATH CONF_REL_INCLUDE_DIR "${INSTALL_CMAKE_DIR}" "${INSTALL_INCLUDE_DIR}")
@@ -87,10 +88,11 @@ configure_file(config/CTL.pc.in "${PROJECT_BINARY_DIR}/CTL.pc" @ONLY)
 install( FILES "${PROJECT_BINARY_DIR}/CTL.pc" DESTINATION lib/pkgconfig COMPONENT dev )
 endif()
 
+message( STATUS "library dependencies ${PROJECT_BINARY_DIR}/CTLLibraryDepends.cmake")
 install( FILES
   "${PROJECT_BINARY_DIR}/CTLConfig.cmake"
   "${PROJECT_BINARY_DIR}/CTLConfigVersion.cmake"
   DESTINATION "${INSTALL_CMAKE_DIR}" COMPONENT dev)
-install(FILES "${PROJECT_BINARY_DIR}/CTLLibraryDepends.cmake" DESTINATION
-  "${INSTALL_CMAKE_DIR}" COMPONENT dev)
+# install(FILES "${PROJECT_BINARY_DIR}/CTLLibraryDepends.cmake" DESTINATION
+#   "${INSTALL_CMAKE_DIR}" COMPONENT dev)
 
