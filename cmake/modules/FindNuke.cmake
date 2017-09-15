@@ -6,13 +6,13 @@ set( NUKE_INSTALL_PATH $ENV{NDKDIR} CACHE PATH "Path to folder where Nuke is ins
 
 if(EXISTS ${NUKE_INSTALL_PATH})
   get_filename_component( NUKE_VERSION "${NUKE_INSTALL_PATH}" NAME )
-
+  message( STATUS "NUKE_VERSION is '${NUKE_VERSION}'" )
   set( NUKE_OSX_SUFFIX ${NUKE_VERSION}.app/Contents/MacOS )
   find_path( NUKE_INCLUDE_DIR
              NAMES DDImage/Op.h
              PATHS ${NUKE_INSTALL_PATH}
              PATH_SUFFIXES include ${NUKE_OSX_SUFFIX}/include )
-
+  message( STATUS "NUKE_INCLUDE_DIR is '${NUKE_INCLUDE_DIR}'" )
   if(NUKE_INCLUDE_DIR AND EXISTS "${NUKE_INCLUDE_DIR}/DDImage/ddImageVersionNumbers.h")
     file(STRINGS "${NUKE_INCLUDE_DIR}/DDImage/ddImageVersionNumbers.h" 
          nuke_version_str

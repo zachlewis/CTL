@@ -46,4 +46,4 @@ ENDIF(${CMAKE_SYSTEM_NAME} MATCHES "Darwin")
 
 install( FILES CtlSimdInterpreter.h DESTINATION include/CTL )
 
-install( TARGETS IlmCtlSimd DESTINATION lib )
+install( TARGETS IlmCtlSimd EXPORT dev DESTINATION lib )

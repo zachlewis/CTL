@@ -54,4 +54,4 @@ install( FILES
 	CtlVersion.h
  DESTINATION include/CTL )
 
-install( TARGETS IlmCtl DESTINATION lib )
+install( TARGETS IlmCtl EXPORT dev DESTINATION lib )

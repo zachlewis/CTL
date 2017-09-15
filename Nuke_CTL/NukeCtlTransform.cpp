@@ -200,7 +200,7 @@ namespace NukeCtl
       }
       catch (const BaseExc& e)
       {
-        THROW(ArgExc, "error finding top-level function name in transform at path 1" << transformPath_ << "': " << e.what());
+        THROW(ArgExc, "error finding top-level function name in transform at path `" << transformPath_ << "': " << e.what());
       }
     } catch (const BaseExc& e) {
       THROW(ArgExc, "error loading CTL transform from path `" << transformPath_ << "': " << e.what());
@@ -216,7 +216,8 @@ namespace NukeCtl
     // function call objects are not thread-safe. Interpreters (or at least the reference
     // SIMD interpreter) ARE thread-safe, so it's cool to stash an interpreter as CtlTransform
     // member variable and share it...but stay away from FunctionCallPtr member variables in
-    // CtlTransform objects, and since they point into such objects, from ArgMap member
+
+    // CtlTransform objects, and since they point into such objects, from ChanArgMap member
     // variables as well.
     
     try {

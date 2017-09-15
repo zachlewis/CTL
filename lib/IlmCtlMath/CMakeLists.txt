@@ -24,6 +24,6 @@ install( FILES
   CtlSparseMatrix.h
  DESTINATION include/CTL )
 
-install( TARGETS IlmCtlMath DESTINATION lib )
+install( TARGETS IlmCtlMath EXPORT dev DESTINATION lib )
 
 # TODO Add Imath and Iex libadd dependency and version info
