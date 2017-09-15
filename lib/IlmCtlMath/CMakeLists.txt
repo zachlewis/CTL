@@ -13,6 +13,10 @@ set_target_properties( IlmCtlMath PROPERTIES
   SOVERSION ${CTL_VERSION}
 )
 
+IF(${CMAKE_SYSTEM_NAME} MATCHES "Darwin")
+  set_target_properties(IlmCtlMath PROPERTIES INSTALL_RPATH "${CMAKE_INSTALL_PREFIX}/lib")
+ENDIF(${CMAKE_SYSTEM_NAME} MATCHES "Darwin")
+
 install( FILES
   CtlColorSpace.h
   CtlLookupTable.h
@@ -20,6 +24,6 @@ install( FILES
   CtlSparseMatrix.h
  DESTINATION include/CTL )
 
-install( TARGETS IlmCtlMath DESTINATION lib )
+install( TARGETS IlmCtlMath EXPORT dev DESTINATION lib )
 
 # TODO Add Imath and Iex libadd dependency and version info

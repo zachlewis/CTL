@@ -29,6 +29,10 @@ set_target_properties( IlmCtl PROPERTIES
   SOVERSION ${CTL_VERSION}
 )
 
+IF(${CMAKE_SYSTEM_NAME} MATCHES "Darwin")
+  set_target_properties(IlmCtl PROPERTIES INSTALL_RPATH "${CMAKE_INSTALL_PREFIX}/lib")
+ENDIF(${CMAKE_SYSTEM_NAME} MATCHES "Darwin")
+
 install( FILES
 	CtlAddr.h
 	CtlAlign.h
@@ -50,4 +54,4 @@ install( FILES
 	CtlVersion.h
  DESTINATION include/CTL )
 
-install( TARGETS IlmCtl DESTINATION lib )
+install( TARGETS IlmCtl EXPORT dev DESTINATION lib )
