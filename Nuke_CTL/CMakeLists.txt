@@ -55,5 +55,3 @@ if(NUKE_FOUND)
 else()
   message( WARNING "Nuke not found, check NUKE_INSTALL_PATH setting or NDKDIR environment variable. NukeCTL plugin disabled." )
 endif()
-
-
